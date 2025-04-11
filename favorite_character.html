@@ -1,11 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link rel="stylesheet" href="//pengxwang.s3.amazonaws.com/codepen-resources/common-helpers/main-v2.css">
+    <link rel="stylesheet" href="asset/css/evangelion_ui.css">
+    <script src="asset/js/evangelion_ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    
+<!-- using: -blink -clearfix -static -->
+
+
+
+<div id="MainVisual" class="board -clearfix">
+    <div class="piece">
+      <div class="label -bordered">Psychographic Display</div>
+    </div>
+    <div class="piece">
+      <div class="label -blink -bordered --danger">Approaching Limits</div>
+      <div class="separator"></div>
+      <div class="label -blink -bordered -short --danger">Danger</div>
+    </div>
+    <div class="piece">
+      <div id="internal" class="label -bordered">
+        <div class="text -characters">内部</div>
+        <div class="text">Internal</div>
+        <div class="decal -blink -striped"></div>
+      </div>
+    </div>
+    <div class="piece -rotate-method">
+      <div class="hex-row -clearfix"><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div></div>
+      <div class="hex-row -clearfix"><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div></div>
+      <div class="hex-row -clearfix"><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div><div class="hex -blink"></div></div>
+    </div>
+    <!-- <div class="mainImage">
+        <ul>
+            <li><img src="asset/images/main.webp" alt=""></li>
+        </ul>
+    </div> -->
+    <div id="MainVideo">
+        <div class="video-background">
+            <iframe src="https://www.youtube.com/embed/dSuYWdn61_o?autoplay=1&mute=1&controls=0&loop=1&playlist=dSuYWdn61_o&modestbranding=1&rel=0&showinfo=0"  title="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen  style="width: 100vw; height: 100vh;"></iframe>
+        </div>
+        <div class="MainTitle">
+          <h2>AN ODE TO EVANGELION</h2>
+          <h3>A journey info the souls of humanity and machines</h3>
+        </div>
+        <!-- 체크무늬 패턴 오버레이 -->
+        <div class="pattern-overlay"></div>
+    </div>
+    <div class="TextLogo ">
+        <ul>
+            <li><img src="asset/images/evangelion_Text.webp" alt="" class="Logo" srcset=""></li>
+        </ul>
+        <ul>
+            <li><img src="asset/images/evangelion_1.png" alt="" class="evangelion_1 logo-scroll"></li>
+        </ul>
+    </div>
+    <script src="asset/js/logo_scroll.js"></script>
+</div>
+<div id="Story">
+  <h2>The Story of Evangelion</h2>
+    <ul>
+      <li>
+        <p>
+          세컨드 임팩트라는 대재앙 이후, 인류는 멸망의 위기에 처하게 된다. 인류의 마지막 희망이 된 비밀 조직 NERV는 정체불명의 존재 ‘사도(Angel)’에 맞서기 위해, 거대한 생체기계 병기 ‘에반게리온’을 개발한다.<br>
+          <!-- In a post-apocalyptic world shaped by the catastrophic Second Impact, humanity’s survival hangs by a thread. The secretive organization NERV develops giant biomechanical weapons known as Evangelions to fight mysterious beings called Angels.</p> -->
+        <p>
+          신지 이카리, 아야나미 레이, 소류 아스카 랑그레이를 비롯한 십대 소년소녀들이 파일럿으로 선택되어 이 거대한 병기를 조종하게 되며, 이들은 전투를 통해 사도뿐만 아니라 자신 내면의 상처와 공포, 그리고 인간 존재에 대한 근본적인 진실과 마주하게 된다.<br>
+          <!-- Teenage pilots, including Shinji Ikari, Rei Ayanami, and Asuka Langley, are chosen to control these powerful machines. As battles intensify, they confront not only the Angels, but also their own trauma, fears, and the existential truths behind human existence.</p> -->
+        <p>
+          에반게리온은 정체성, 외로움, 자유 의지, 그리고 사람 사이의 연약한 연결고리 등 복잡하고도 깊이 있는 주제를 다룬다. 표면적으로는 로봇 애니메이션처럼 보이지만, 그 안에는 철학적이고 감정적인 서사가 자리하고 있으며, 전 세계의 수많은 팬들에게 오랫동안 큰 울림을 주고 있다.<br>
+          이 모든 이야기의 끝에는 과연 어떤 진실이 기다리고 있을까...<br>
+          <!-- Evangelion explores complex themes of identity, loneliness, free will, and the fragile connection between people. Beneath the surface of a mecha battle anime lies a deeply philosophical and emotional narrative that continues to resonate with viewers around the world.</p> -->
+      </li>
+    </ul>
+</div>
+
+
+
+<div id="rei" class="info-box">
+  <div class="infoWrap">
+    <div class="img">
+      <img src="asset/images/ayanamiRei.webp" alt="">
+    </div>
+    <div class="info">
+      <h2>아야나미 레이 (Ayanami Rei)</h2>
+      <p><span>성격</span>말수가 적고 감정을 거의 드러내지 않음. 무표정하고 차분한 태도가 특징이며, 타인의 감정에 큰 관심을 보이지 않음.</p>
+      <p><span>배경</span>그녀의 정체는 복잡한 과학적 비밀에 둘러싸여 있으며, 육체적으로는 인간이지만 인간 이상도 이하도 아님.</p>
+      <p><span>특징</span>지에게 점차 마음을 열어가며, 인간성과 감정에 대한 의문을 품기 시작함.</p>
+      <p class="famous"><span>명대사</span>“나는 네가 죽지 않았으면 좋겠어.”</p>
+    </div>
+  </div>
+
+</div>
+<div id="shinji" class="info-box">
+  <div class="infoWrap">
+    <div class="info">
+      <h2>이카리 신지 (Ikari Shinji)</h2>
+      <p><span>성격</span>내성적이고 감정 표현에 서툰 소년. 타인과의 관계에서 상처받는 것을 두려워하며, 타인의 기대에 부응하려는 강박을 가짐.</p>
+      <p><span>배경</span>NERV 총사령관 이카리 겐도의 아들. 어릴 적 부모에게서 버림받은 기억이 깊은 심리적 상처로 남음.</p>
+      <p><span>특징</span>반복되는 전투와 주변 사람들의 기대 속에서 ‘자신이 왜 싸워야 하는가’에 대한 정체성의 혼란을 겪음.</p>
+      <p class="famous"><span>명대사</span>“도망치면 안 돼... 도망치면 안 돼...”</p>
+    </div>
+    <div class="img">
+      <img src="asset/images/Shinji_Ikari.png" alt="">
+    </div>
+  </div>
+</div>
+<div id="asuka" class="info-box">
+  <div class="infoWrap">
+    <div class="img">
+      <img src="asset/images/Asuka.webp" alt="">
+    </div>
+    <div class="info">
+      <h2>소류 아스카 랑그레이 (Soryu Asuka Langley)</h2>
+      <p><span>성격</span>자신감 넘치고 자존심이 강함. 타인에게 인정받고자 하는 욕망이 크며, 감정을 겉으로 분출하는 타입.</p>
+      <p><span>배경</span>독일계 혼혈로, 어린 시절의 외로움과 상처가 공격적인 태도로 표출됨.</p>
+      <p><span>특징</span>뛰어난 전투 실력과 자긍심을 가졌지만, 신지와의 관계, 파일럿으로서의 위기 등에서 심리적 붕괴를 경험함.</p>
+      <p class="famous"><span>명대사</span>“바보 신지!”</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="Pilots">
+  <h2>Protagonist</h2>
+  <div class="container">
+    <div class="container__card rei">
+      <div class="container__card--content">
+        <h2>00</h2>
+        <p class="character rei"><img src="asset/images/ayanamiRei.webp" alt=""></p>
+        <h3>레이 아야나미</h3>
+        <p>신비롭고 감정을 잘 드러내지 않는 소녀. EVA-00의 파일럿.</p>
+        <a href="#" onclick="showAndScroll('rei'); return false;">더보기</a>
+      </div>
+    </div>  
+      <div class="container__card shinji">
+      <div class="container__card--content">
+        <h2>01</h2>
+        <p class="character shinji"><img src="asset/images/ikariShinji.webp" alt=""></p>
+        <h3>이카리 신지</h3>
+        <p>내성적이고 우울하지만 책임감 있는 소년. 아버지의 명령으로 파일럿이 됨.	</p>
+        <a href="#" onclick="showAndScroll('shinji'); return false;">더보기</a>
+      </div>
+    </div> 
+      <div class="container__card asuka">
+      <div class="container__card--content">
+        <h2>02</h2>
+        <p class="character asuka"><img src="asset/images/Asuka.webp" alt=""></p>
+        <h3>아스카</h3>
+        <p>자존심이 강하고 활달한 성격의 독일계 혼혈 소녀. EVA-02 조종.</p>
+        <a href="#" onclick="showAndScroll('asuka'); return false;">더보기</a>
+      </div>
+    </div> 
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="asset/js/cardEffect.js"></script>
+  <script>
+    function showAndScroll(id) {
+      // 모든 info-box 숨김
+      document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
+  
+      // 대상 info-box 보이게 하기
+      const target = document.getElementById(id);
+      target.style.display = 'block';
+  
+      // 부드러운 스크롤 이동
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</div>
+
+<footer>
+  <div>
+    <ul>
+      <li>© 2025 Evangelion Fan Project. Designed by <strong>Designer_S</strong>. Fan-made for non-commercial purposes.</li>
+    </ul>
+  </div>
+  
+</footer>
+
+
 </body>
 </html>

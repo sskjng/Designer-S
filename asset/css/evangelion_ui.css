@@ -1,0 +1,261 @@
+/* `font-stretch` isn't well supported, so instead of using a condensed font variant, load a condensed font. */
+@import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+
+  
+/* Jura → 영문에만 적용되도록 설정 */
+@font-face {
+  font-family: 'CustomFont';
+  src: local('Jura'), url('https://fonts.gstatic.com/s/jura/v21/z7NOdRfiaC4Vd8f1Jb0.woff2') format('woff2');
+  unicode-range: U+0020-007F; /* Basic Latin (영문) */
+}
+
+/* Noto Sans KR → 한글에만 적용 */
+@font-face {
+  font-family: 'CustomFont';
+  src: local('Noto Sans KR'), url('https://fonts.gstatic.com/s/notosanskr/v27/Pby6FmXiEBPT4ITbgNA5CgmOelzI6Hk.woff2') format('woff2');
+  unicode-range: U+AC00-D7A3; /* Hangul Syllables */
+}
+
+
+html, body { margin: 0; padding: 0;  }
+body { font-family: 'CustomFont', sans-serif; }
+* { margin:0; padding:0; box-sizing:border-box; list-style: none; }
+
+
+
+
+
+/* 메인 최상단 */
+#MainVisual { height: 100vh; }
+#MainVisual.board { display: flex; justify-content: space-between; --glow-rgb: 255, 102, 0; --text-color: #fa0; --danger-fill-color: #f23; --danger-glow-rgb: 255, 0, 0; --danger-text-color: #f30; --gutter-size: 8px; padding: 1rem; }
+#MainVisual .piece { position: relative; margin-bottom: 1rem; margin-right: 1rem; z-index: 1; }
+
+/* attributes */
+
+#MainVisual .-bordered { --border-glow-color: rgba(var(--glow-rgb), .7); border-radius: var(--gutter-size); border-style: solid; border-width: 3px; box-shadow: inset 0 0 0 1px var(--border-glow-color), 0 0 0 1px var(--border-glow-color); }
+#MainVisual .-bordered.--danger { --border-glow-color: rgba(var(--danger-glow-rgb), .7); }
+
+#MainVisual .-striped {
+  --stripe-color: var(--danger-fill-color);
+  --stripe-size: 15px;
+  --glow-color: rgba(var(--danger-glow-rgb), .8);
+  --glow-size: 3px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    /* glow boundary */
+    var(--glow-color) calc(-1 * var(--glow-size)),
+    /* fade into foreground */
+    var(--stripe-color) 0,
+    /* fade from foreground */
+    var(--stripe-color) calc(var(--stripe-size) - var(--glow-size) / 2),
+    /* glow boundary */
+    var(--glow-color) calc(var(--stripe-size) + var(--glow-size) / 2),
+    /* fade to background */
+    transparent calc(var(--stripe-size) + var(--glow-size) / 2),
+    /* fade from background */
+    transparent calc(2 * var(--stripe-size)),
+    /* glow boundary */
+    var(--glow-color) calc(2 * var(--stripe-size) - var(--glow-size))
+  );
+  box-shadow: inset 0 0 1px calc(var(--glow-size) / 2) var(--shade-3);
+}
+
+/* components */
+
+#MainVisual .label {
+  display: inline-block;
+  font: 400 32px 'Roboto Condensed';
+  letter-spacing: -1px;
+  line-height: 1;
+  padding: 1px calc(var(--gutter-size) - 3px);
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+  /* skin */
+  --text-glow-color: rgba(var(--glow-rgb), .5);
+  color: var(--text-color);
+  text-shadow:
+    -1px 1px 0 var(--text-glow-color),
+    1px -1px 0 var(--text-glow-color),
+    -1px -1px 0 var(--text-glow-color),
+    1px 1px 0 var(--text-glow-color);
+}
+#MainVisual .label.-short { font-size: 40px; }
+#MainVisual .label.--danger { --text-glow-color: rgba(var(--danger-glow-rgb), .5); color: var(--danger-text-color); }
+#MainVisual .label + .separator { height: var(--gutter-size); }
+#MainVisual .label .text.-characters { font-weight: 600; }
+#MainVisual .label#internal {
+  --decal-width: 50px;
+  --label-corner-size: 3px;
+  --label-gutter-size: 5px;
+  display: grid;
+  column-gap: var(--label-gutter-size);
+  grid-template-columns: auto var(--decal-width);
+  padding: var(--label-corner-size);
+}
+#MainVisual .label#internal .text { text-align: right; }
+#MainVisual .label#internal .text.-characters { font-size: 64px; padding-top: var(--label-gutter-size); }
+#MainVisual .label#internal .decal { border-radius: calc(var(--label-corner-size) - 1px); grid-area: 1 / 2 / span 2 / 2; }
+#MainVisual .hex {
+  --edge-size: 20px;
+  --diagonal-size: calc(var(--edge-size) * 2);
+  --diagonal-s-size: calc(var(--edge-size) * 1.75); /* diagonal */
+  --gutter-ratio: .85;
+  --gutter-size: calc(var(--edge-size) * .35);
+  --gutter-d-size: calc(var(--edge-size) / 2);
+  float: left;
+  height: var(--diagonal-s-size);
+  margin-bottom: var(--gutter-size);
+  margin-left: calc(var(--gutter-ratio) * var(--edge-size) / 2);
+  margin-right: calc(var(--gutter-ratio) * var(--edge-size) / 2);
+  position: relative;
+  width: var(--edge-size);
+  /* skin */
+  --fill-color: var(--danger-text-color);
+  --glow-color: rgba(var(--danger-glow-rgb), .5);
+  background: var(--fill-color);
+  box-shadow:
+    0 0 var(--gutter-d-size) var(--glow-color),
+    0 0 calc(var(--gutter-d-size) / 2) var(--glow-color);
+  /* animation */
+  --blink-duration: 3s;
+  animation-delay: .1s;
+}
+#MainVisual .hex::before, .hex::after { content: ''; display: block; position: absolute; }
+#MainVisual .hex:nth-child(odd) { top: calc((var(--diagonal-s-size) + var(--gutter-size)) / 2); }
+#MainVisual .hex:nth-child(2n) { animation-delay: .2s; }
+#MainVisual .hex:nth-child(3n) { animation-delay: .3s; }
+#MainVisual .hex-row:nth-child(even) > .hex { animation-delay: .3s; }
+#MainVisual .hex-row:nth-child(even) > .hex:nth-child(2n) { animation-delay: .2s; }
+#MainVisual .hex-row:nth-child(even) > .hex:nth-child(3n) { animation-delay: .1s; }
+
+#MainVisual .-border-method .hex { --tip-height: var(--diagonal-s-size); --tip-width: calc(var(--edge-size) * 2); }
+#MainVisual .-border-method .hex::before, .-border-method .hex::after { border-color: transparent var(--fill-color); border-style: solid; border-width: calc(var(--tip-height) / 2) var(--tip-width); }
+#MainVisual .-border-method .hex::before { border-left: 0; left: calc(-1 * var(--tip-width)); }
+#MainVisual .-border-method .hex::after { border-right: 0; right: calc(-1 * var(--tip-width)); }
+
+#MainVisual .-rotate-method .hex::before, .-rotate-method .hex::after {
+  background: var(--fill-color);
+  box-shadow: inherit;
+  height: var(--diagonal-s-size);
+  width: var(--edge-size);
+}
+#MainVisual .-rotate-method .hex::before { transform: rotate(60deg); }
+#MainVisual .-rotate-method .hex::after { transform: rotate(-60deg); }
+
+
+#MainVisual #MainVideo { z-index: -1; }
+#MainVisual #MainVideo .video-background { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; pointer-events: none; }
+#MainVisual #MainVideo .MainTitle { position: absolute; width: 100%; top: calc(50% - 200px); left: 0; text-align: center; z-index: 1; }
+#MainVisual #MainVideo .MainTitle h2 { font-family: 'Jura'; font-size: 4rem; color: #FFFFFF; mix-blend-mode:color; }
+#MainVisual #MainVideo .MainTitle h3 { font-family: 'Jura'; font-size: 2rem; color: #FFFFFF80; }
+#MainVisual #MainVideo .pattern-overlay {  position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background:rgba(0,0,0,0.5) url('../images/bg_check.svg') 0 0 repeat; /* mix-blend-mode: overlay; */ z-index: 0; pointer-events: none; }
+#MainVisual .TextLogo { position: absolute; margin: 0; padding: 0; left:calc(50% - 360px); bottom:-150px; opacity: 1; transition: transform 0.2s ease, opacity 0.2s ease; }
+#MainVisual .TextLogo ul { padding: 0; }
+#MainVisual .TextLogo ul li { text-align: center; }
+#MainVisual .TextLogo img.Logo { opacity: 0; transform: scale(0.5) rotate(-20deg); filter: blur(20px) brightness(2); animation: TextLogoPopIn 1.5s ease-out forwards; }
+@keyframes TextLogoPopIn {
+    0% {
+      opacity: 0;
+      transform: perspective(1000px) translateZ(-400px) scale(0.3) rotateY(15deg);
+      filter: blur(10px) brightness(2);
+    }
+    60% {
+      opacity: 1;
+      transform: perspective(1000px) translateZ(30px) scale(1.05) rotateY(0deg);
+      filter: blur(2px) brightness(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(1000px) translateZ(0px) scale(1) rotateY(0deg);
+      filter: blur(0) brightness(1);
+    }
+  }
+  #MainVisual .TextLogo img.evangelion_1 { position: absolute; bottom:120px; left:calc(50% - 370px); transform: translateY(0%) scale(1); z-index: -1;  }
+
+
+  #Story { position: relative; width: 100%; margin: 0; padding: 150px 0; z-index: 1; }
+  #Story::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url(../images/bg_SecondImpact.jpg) center 65% no-repeat; background-size: 120%; opacity: 0.2; z-index: -1; }
+  #Story h2 { text-align: center; font-family: 'Jura'; font-size: 3rem; }
+  #Story ul li { max-width: 1200px; margin: 4rem auto 0; } 
+  #Story ul li p { padding:20px 0; word-break: keep-all; }
+
+
+#Pilots { position: relative; padding: 150px 0; overflow: hidden; background: #16162390;}
+#Pilots::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;  background: #161623 url(../images/eva.jpg) center 60% no-repeat; background-size: cover; filter: blur(5px); opacity: 0.5; z-index: -1; overflow: hidden; }
+#Pilots h2 { margin-bottom: 50px; text-align: center; font-family: 'Jura'; font-size: 3rem; color: #FFF; }
+#Pilots .container { position:relative; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; max-width:1200px; margin: 0 auto; z-index:1; }
+#Pilots .container__card {
+        position:relative;
+        width:320px;
+        height:480px;
+        margin:30px;
+        box-shadow:20px 20px 50px rgba(0,0,0,0.5);
+        border-radius:15px;
+        background:rgba(255,255,255,0.1);
+        overflow:hidden;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        border-top:1px solid rgba(255,255,255,0.5);
+        border-left:1px solid rgba(255,255,255,0.5);
+        backdrop-filter:blur(5px);
+}
+#Pilots .container__card.rei::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background:#FFF url(../images/bg_rei.jpg); background-size: cover; background-position: center; filter: blur(2px); opacity: 0.5; z-index: -1; }
+#Pilots .container__card.shinji::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background:#FFF url(../images/bg_shinji.jpg); background-size: cover; background-position: 80% 0; filter: blur(2px); opacity: 0.5; z-index: -1; }
+#Pilots .container__card.asuka::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background:#FFF url(../images/bg_asuka.jpg); background-size: cover; background-position: center; filter: blur(2px); opacity: 0.5; z-index: -1; }
+
+
+#Pilots .container__card--content { padding:20px; text-align:center; transition:0.5s; }
+#Pilots .container__card--content h2 { position:absolute; top:-40px; right:30px; font-size:8em; color:rgb(255,255,255,0.2); pointer-events:none; }
+#Pilots .container__card--content h3 { font-size:1.8em; color:#fff; z-index:1; } 
+#Pilots .container__card--content p { width: 200px; margin: 0 auto; font-size:1em; color:#fff; font-weight:300; }
+#Pilots .container__card--content p.character { position: relative; width: 600px; height: 280px; -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0)); }
+#Pilots .container__card--content p.character img { position: absolute; width: 100%; }
+#Pilots .container__card--content p.character.rei img { top:-5%; left: -2%;}
+#Pilots .container__card--content p.character.shinji img { top:0; left: 0; }
+#Pilots .container__card--content p.character.asuka img { top:-5%; left: -2%; }
+#Pilots .container__card--content a { position: relative; display:inline-block; padding:8px 20px; margin-top:15px; background:#fff; color:#000; border-radius:5px; text-decoration:none; font-weight:500; box-shadow:0 5px 15px rgba(0,0,0,0.5); }
+
+
+
+#rei { position: relative; width: 100%; margin: 0; padding: 50px 0; }
+#rei .infoWrap { position: relative; display: flex; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+#rei .infoWrap .info { padding: 50px; background: #FFFFFF50; backdrop-filter: blur(5px); border-radius: 15px; border-top:1px solid rgba(255,255,255,0.5); border-left:1px solid rgba(255,255,255,0.5); }
+#rei .infoWrap div { width: 50%; }
+#rei .infoWrap div p { margin-top: 10px; word-break: keep-all;}
+#rei .infoWrap div p span { display:block; padding: 6px 0; margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid #000; }
+#rei .infoWrap .img { text-align: center; }
+
+#shinji  { position: relative; width: 100%; margin: 0; padding: 50px 0; } 
+#shinji .infoWrap { position: relative; display: flex; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+#shinji .infoWrap .info { padding: 50px; background: #FFFFFF50; backdrop-filter: blur(5px); border-radius: 15px; border-top:1px solid rgba(255,255,255,0.5); border-left:1px solid rgba(255,255,255,0.5); }
+#shinji .infoWrap div { width: 50%; }
+#shinji .infoWrap div p { margin-top: 10px; word-break: keep-all;}
+#shinji .infoWrap div p span { display:block; padding: 6px 0; margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid #000; }
+#shinji .infoWrap .img { text-align: center; }
+#shinji .infoWrap .img img { height: 800px; }
+
+#asuka { position: relative; width: 100%; margin: 0; padding: 50px 0; }
+#asuka .infoWrap { position: relative; display: flex; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+#asuka .infoWrap .info { padding: 50px; background: #FFFFFF50; backdrop-filter: blur(5px); border-radius: 15px; border-top:1px solid rgba(255,255,255,0.5); border-left:1px solid rgba(255,255,255,0.5); }
+#asuka .infoWrap div { width: 50%; }
+#asuka .infoWrap div p { margin-top: 10px; word-break: keep-all;}
+#asuka .infoWrap div p span { display:block; padding: 6px 0; margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid #000; }
+#asuka .infoWrap .img { text-align: center; }
+#asuka .infoWrap .img img { height: 800px; }
+
+
+.info-box { display: none; transition: all 0.3s ease; }
+
+#rei { background: url(../images/wallpaper_rei.jpg) center center no-repeat; }
+#shinji { background: url(../images/wallpaper_shinji.jpg) center center no-repeat; }
+#asuka { background: url(../images/wallpaper_asuka.jpg) center center no-repeat; }
+
+
+footer { width:100%; background: #161623; border-top:1px solid #fff; }
+footer div { width:1200px; margin: 0 auto; }
+footer div ul li { padding: 40px 0; color:#FFF; font-size: 0.75em;}
